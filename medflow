@@ -210,7 +210,13 @@ export default function ExamPlanner() {
       <h2 className="text-2xl font-bold mb-4">Exam Preparation Planner</h2>
       <p className="text-gray-700">
         Structure your board exam preparation with countdowns, study blocks, and progress tracking.
-      </p>
+      </p>npm install
+npm run dev
     </div>
   );
 }
+mkdir src src/components src/pages
+touch index.html package.json vite.config.js tailwind.config.js postcss.config.js .gitignore
+touch src/main.jsx src/App.jsx src/index.css
+touch src/components/Sidebar.jsx src/components/Header.jsx
+touch src/pages/AcademicPlanner.jsx src/pages/StudyPlanner.jsx src/pages/ClinicalPlan
