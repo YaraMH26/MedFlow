@@ -1,0 +1,216 @@
+medflow-planner/
+├── index.html
+├── package.json
+├── postcss.config.js
+├── tailwind.config.js
+├── vite.config.js
+├── .gitignore
+├── src/
+│   ├── main.jsx
+│   ├── App.jsx
+│   ├── index.css
+│   ├── components/
+│   │   ├── Sidebar.jsx
+│   │   └── Header.jsx
+│   └── pages/
+│       ├── AcademicPlanner.jsx
+│       ├── StudyPlanner.jsx
+│       ├── ClinicalPlanner.jsx
+│       └── ExamPlanner.jsx
+package.json
+{
+  "name": "medflow-planner",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.23.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.0",
+    "autoprefixer": "^10.4.15",
+    "postcss": "^8.4.29",
+    "tailwindcss": "^3.3.3",
+    "vite": "^5.0.0"
+  }
+}
+vite.config.js
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+})
+tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,jsx,ts,tsx}"
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+postcss.config.js
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+
+.gitignore
+node_modules
+dist
+.env
+index.html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedFlow Planner</title>
+  </head>
+  <body class="bg-gray-50">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+src/index.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+src/main.jsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+import "./index.css";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);
+src/App.jsx
+import { Routes, Route } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import AcademicPlanner from "./pages/AcademicPlanner";
+import StudyPlanner from "./pages/StudyPlanner";
+import ClinicalPlanner from "./pages/ClinicalPlanner";
+import ExamPlanner from "./pages/ExamPlanner";
+
+export default function App() {
+  return (
+    <div className="flex h-screen">
+      <Sidebar />
+      <div className="flex flex-col flex-1">
+        <Header />
+        <main className="p-6 overflow-y-auto flex-1">
+          <Routes>
+            <Route path="/" element={<AcademicPlanner />} />
+            <Route path="/study" element={<StudyPlanner />} />
+            <Route path="/clinical" element={<ClinicalPlanner />} />
+            <Route path="/exam" element={<ExamPlanner />} />
+          </Routes>
+        </main>
+      </div>
+    </div>
+  );
+}
+src/components/Sidebar.jsx
+import { Link } from "react-router-dom";
+
+export default function Sidebar() {
+  return (
+    <aside className="w-64 bg-blue-900 text-white flex flex-col">
+      <div className="p-4 text-2xl font-bold border-b border-blue-700">
+        MedFlow
+      </div>
+      <nav className="flex-1 p-4 space-y-2">
+        <Link to="/" className="block p-2 rounded hover:bg-blue-700">
+          Academic Planner
+        </Link>
+        <Link to="/study" className="block p-2 rounded hover:bg-blue-700">
+          Study Planner
+        </Link>
+        <Link to="/clinical" className="block p-2 rounded hover:bg-blue-700">
+          Clinical Planner
+        </Link>
+        <Link to="/exam" className="block p-2 rounded hover:bg-blue-700">
+          Exam Planner
+        </Link>
+      </nav>
+    </aside>
+  );
+}
+src/components/Header.jsx
+export default function Header() {
+  return (
+    <header className="bg-white shadow px-6 py-4 flex justify-between items-center">
+      <h1 className="text-xl font-semibold">Dashboard</h1>
+      <button className="px-4 py-2 bg-blue-600 text-white rounded">
+        Profile
+      </button>
+    </header>
+  );
+}
+src/pages/AcademicPlanner.jsx
+export default function AcademicPlanner() {
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mb-4">Academic Planner</h2>
+      <p className="text-gray-700">
+        Centralize your course-related dates, deadlines, and exam schedules.
+      </p>
+      {/* Future: syllabus uploads, calendar view, etc. */}
+    </div>
+  );
+}
+src/pages/StudyPlanner.jsx
+export default function StudyPlanner() {
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mb-4">Study Schedule Planner</h2>
+      <p className="text-gray-700">
+        Organize your study sessions with Pomodoro timers, spaced repetition, and progress tracking.
+      </p>
+    </div>
+  );
+}
+src/pages/ClinicalPlanner.jsx
+export default function ClinicalPlanner() {
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mb-4">Clinical Rotation Planner</h2>
+      <p className="text-gray-700">
+        Track your clinical rotations, patient logs, supervisor details, and feedback.
+      </p>
+    </div>
+  );
+}
+src/pages/ExamPlanner.jsx
+export default function ExamPlanner() {
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mb-4">Exam Preparation Planner</h2>
+      <p className="text-gray-700">
+        Structure your board exam preparation with countdowns, study blocks, and progress tracking.
+      </p>
+    </div>
+  );
+}
